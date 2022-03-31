@@ -1,0 +1,77 @@
+body {
+    background-color: #0093E9;
+    background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+    font-family: 'Roboto', sans-serif;
+}
+
+input:focus {
+    outline: none;
+}
+
+.main {
+    width: 100vw;
+    height: 100vh;
+
+}
+
+h1{
+    margin: 0;
+    text-align: center;
+    font-size: 4rem;
+    padding-top: 5rem;
+    
+}
+.task--container {
+    width: max-content;
+    height: max-content;
+    margin: 0 auto;
+    padding: 1rem 3rem;
+    background-color: #80d0c7;
+    box-shadow: 0px 0px 30px 4px #0093E9;
+    border-radius: .5rem;
+}
+
+.task--container h2 {
+    text-align: center;
+}
+
+.task--input {
+    border-radius: .2rem 0 0 .2rem;
+    width: 20rem;
+    border: white .2rem solid;
+    height: 2rem;
+
+}
+
+
+.task--button__añadir {
+    border-radius: 0 .2rem .2rem 0;
+    border: teal .2rem solid;
+    border-left: white .2rem solid;
+    height: 2.5245rem;
+    background-color: teal;
+    color: white;
+
+    transition: all .2s;
+    
+}
+
+.task--button__añadir:hover {
+    background-color: rgb(1, 99, 99);
+    border: rgb(1, 99, 99) .2rem solid;
+    border-left: white .2rem solid;
+    
+}
+
+
+.task--enter div {
+    height: max-content;
+    border:  .5rem solid;
+    
+}
+
+.task--enter {
+    display: flex;
+    align-items: center;
+}
+
