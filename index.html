@@ -4,13 +4,43 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="./styles/normalize.css">
+    <link rel="stylesheet" href="./styles/index.css">
     
     <title>Todo App</title>
 </head>
 <body>
+
+    <main class="main">
+        <h1>TODO APP</h1>
+        <div id="task--container" class="task--container">
+            <h2>Escribe tus tareas!</h2>
+
+            <div id="task--enter" class="task--enter">
+                
+                <input type="text" class="task--input" name="task--input" id="task--input">
+                
+                <input type="button" class="task--button__añadir" value="Añadir">
+
+            </div>
+
+            <ul id="task--list">
+                <li id="314123421">
+                    <input type="checkbox" name="marckComplete" id="marckComplete">
+                    <p>Tarea 1</p>
+                    <button>Borrar</button>
+                </li>
+            </ul>
+
+        </div>
+    </main>
     
-    <h1>Todo</h1>
+    
     
     <script src="public/TaskClass.js"></script>
     <script src="public/app.js"></script>
