@@ -20,8 +20,11 @@ h1{
     font-size: 4rem;
     padding-top: 5rem;
     margin-bottom: 3rem;
+    transition: all .2s;
     
 }
+
+
 .task--container {
     width: max-content;
     height: max-content;
@@ -41,8 +44,9 @@ h1{
     width: 25rem;
     border: white .2rem solid;
     height: 2rem;
+    font-weight: bold;
+    padding-left: 0.5rem;
     transition: all .2s;
-
 }
 
 
@@ -163,8 +167,8 @@ h1{
 }
 
 .fastestTaskButton:hover {
-    background-color: transparent;
-    color: teal;
+    background-color: rgb(1, 99, 99);
+    border: .2rem rgb(1, 99, 99) solid;
     transform: scale(1.05)
 }
 
@@ -191,4 +195,12 @@ h1{
 
 .tachado {
     text-decoration:line-through;
+}
+
+p {
+    font-weight: bold;
+}
+
+.task div input {
+    accent-color: teal;
 }

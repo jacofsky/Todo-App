@@ -32,7 +32,7 @@ const showFastestTask = () => {
     else {
         containerFastTask.innerHTML = `
             <div>
-                <p>${fastestTask.description}</p>
+                <p class="animate__animated animate__fadeIn">${fastestTask.description}</p>
             </div>`;
     }
 };
