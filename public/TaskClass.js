@@ -42,6 +42,7 @@ class TaskArray {
                     task.complete = false;
                     task.finishDate = null;
                     task.completeTime = null;
+                    task.startDate = new Date().getTime();
                     encontro = true;
                 }
             }
