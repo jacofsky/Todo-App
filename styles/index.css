@@ -19,12 +19,13 @@ h1{
     text-align: center;
     font-size: 4rem;
     padding-top: 5rem;
+    margin-bottom: 3rem;
     
 }
 .task--container {
     width: max-content;
     height: max-content;
-    margin: 0 auto;
+    max-height: 60vh;
     padding: 1rem 3rem;
     background-color: #80d0c7;
     box-shadow: 0px 0px 30px 4px #0093E9;
@@ -37,9 +38,10 @@ h1{
 
 .task--input {
     border-radius: .2rem 0 0 .2rem;
-    width: 20rem;
+    width: 25rem;
     border: white .2rem solid;
     height: 2rem;
+    transition: all .2s;
 
 }
 
@@ -51,6 +53,9 @@ h1{
     height: 2.5245rem;
     background-color: teal;
     color: white;
+    position: relative;
+    left: -4px;
+    font-weight: bold;
 
     transition: all .2s;
     
@@ -75,3 +80,115 @@ h1{
     align-items: center;
 }
 
+.taskUl {
+    overflow-y: auto;
+    padding: 0rem 0.5rem;
+    height: 21rem;
+    padding-left: 0;
+    margin-top: 2rem;
+}
+
+*::-webkit-scrollbar {
+    width: .5rem;
+}
+  
+
+  
+*::-webkit-scrollbar-thumb {
+    background-color: teal;
+    border-radius: .5rem;
+    border: 3px solid teal;
+}
+  
+
+.task {
+    list-style:none;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .2rem 0;
+    margin: 0 0 1rem 0;
+    border-radius: 1rem;
+    box-shadow: 0px 0px 24px -14px rgb(0 0 0 / 48%);
+}
+
+.task div {
+    margin-left: 1rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+
+}
+
+.task button {
+    margin-right: 1rem;
+    background-color: teal;
+    border: teal .2rem solid;
+    border-radius: .3rem;
+    transition: all .2s;
+}
+
+.task button:hover {
+    background-color: transparent;
+    transform: scale(1.2)
+
+}
+
+.task button:active {
+    transform: scale(1)
+}
+
+.task button i{
+    color: white;
+    position: relative;
+    font-size: 1.5rem;
+    transition: all .2s;
+    
+}
+
+.task button:hover i{
+    color: teal;
+}
+
+.fastestTaskButton {
+    width: 100%;
+    margin-top: 1rem;
+    border-radius: .5rem;
+    background: teal;
+    color: white;
+    font-weight: bold;
+    border: .2rem teal solid;
+    transition: all .2s;
+}
+
+.fastestTaskButton:hover {
+    background-color: transparent;
+    color: teal;
+    transform: scale(1.05)
+}
+
+.fastestTaskButton:active {
+    transform: scale(1)
+}
+
+.containers {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    
+}
+
+.fastTaskContainer {
+    width: 20rem;
+    height: max-content;
+    padding: 1rem 3rem;
+    background-color: #80d0c7;
+    box-shadow: 0px 0px 30px 4px #0093E9;
+    border-radius: .5rem;
+    text-align: center
+}
+
+.tachado {
+    text-decoration:line-through;
+}

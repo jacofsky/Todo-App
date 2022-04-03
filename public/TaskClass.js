@@ -6,6 +6,7 @@ class Task {
         this.complete = false;
         this.startDate = this.getDate().getTime();
         this.finishDate = null;
+        this.completeTime = null;
     }
     getDate() {
         return new Date();
@@ -14,26 +15,35 @@ class Task {
 class TaskArray {
     constructor() {
         this.tasks = [];
-        this.fastestTask = null;
+        this.fastestTask = this.getFastestTask();
     }
     addTask(desc) {
         if (desc.length < 1) {
             return false;
         }
-        this.tasks.push(new Task(desc));
+        this.tasks.unshift(new Task(desc));
         this.setLocalStorage(this.getAll());
         return true;
     }
     getAll() {
         return this.tasks;
     }
-    markComplete(key) {
+    toggleComplete(key) {
         let encontro = false;
         this.tasks.map(task => {
             if (task.key === key) {
-                task.complete = true;
-                task.finishDate = new Date().getTime();
-                encontro = true;
+                if (task.complete === false) {
+                    task.complete = true;
+                    task.finishDate = new Date().getTime();
+                    task.completeTime = task.finishDate - task.startDate;
+                    encontro = true;
+                }
+                else if (task.complete === true) {
+                    task.complete = false;
+                    task.finishDate = null;
+                    task.completeTime = null;
+                    encontro = true;
+                }
             }
         });
         this.setLocalStorage(this.getAll());
@@ -41,9 +51,7 @@ class TaskArray {
     }
     deleteTask(key) {
         let confirm = this.tasks.length;
-        console.log(confirm);
         this.tasks = this.getAll().filter(task => task.key !== key);
-        console.log(this.tasks.length);
         this.setLocalStorage(this.getAll());
         return this.tasks.length < confirm;
     }
@@ -58,7 +66,21 @@ class TaskArray {
         localStorage.setItem("tasks", JSON.stringify(tasks));
     }
     getFastestTask() {
-        this.tasks.sort;
-        return;
+        const completeTasks = this.getAll().filter(task => task.complete === true);
+        if (completeTasks.length >= 1) {
+            const fastestTask = completeTasks.reduce((a, b) => {
+                if (a.completeTime && b.completeTime) {
+                    if (a.completeTime < b.completeTime) {
+                        return a;
+                    }
+                    else {
+                        return b;
+                    }
+                }
+                return null;
+            });
+            return fastestTask;
+        }
+        return null;
     }
 }

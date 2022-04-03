@@ -1,45 +1,120 @@
-// la key debe ser el id que se imprime en html
-
-console.log("Hola mundo")
+const taskButton = document.querySelector('#taskAddButton') as HTMLButtonElement
+const taskText = document.querySelector('#taskTextInput') as HTMLInputElement
+const taskList = document.querySelector('#task--list') as HTMLUListElement
+const fastTaskButton = document.querySelector('#fastestTaskButton') as HTMLButtonElement
+const containerFastTask = document.querySelector('#fastTask') as HTMLDivElement
+const deleteButton = document.querySelector('#deleteButton') as HTMLButtonElement
 
 const taskArray = new TaskArray()
 taskArray.getLocalStorage()
 
-const resultado = taskArray.addTask("tarea 1")
-const tareas = taskArray.getAll()
 
-console.log(tareas)
 
-setTimeout(() => {
+taskButton!.addEventListener('click', () => addTaskDom())
 
-    // const marcarCompleto = taskArray.markComplete(tareas[0].key)
-    const marcarCompleto = taskArray.markComplete(123321)
-    console.log(marcarCompleto)
+fastTaskButton!.addEventListener('click', () => showFastestTask())
 
-    console.log(tareas)
-
+taskText.addEventListener('keyup',function(e) {
+    if (e.key === 'Enter' || e.keyCode === 13) {
+        if(taskText.value.length > 1) {
+        
+            taskArray.addTask(taskText.value)
     
-}, 1000);
-
-setTimeout(() => {
-
-    // const marcarCompleto = taskArray.markComplete(tareas[0].key)
-    //const eliminar = taskArray.deleteTask(tareas[0].key)
-    //console.log(eliminar)
-
-    console.log(tareas)
-
+            taskButton.style.borderLeft = '.2rem solid white'
+            taskText.style.border = '.2rem solid white'
     
-}, 2000);
-
-setTimeout(() => {
-
-    const tareasDeNuev = taskArray.getAll()
+            printTasks()
     
-
-    console.log(tareasDeNuev)
-
+            taskText.value = ''
     
-}, 3000);
+        } else {
+            taskButton.style.borderLeft = '.2rem solid red'
+            taskText.style.border = '.2rem solid red'
+        }
+    }
+})
 
 
+const showFastestTask = () => {
+
+    const fastestTask = taskArray.getFastestTask();
+
+    if(fastestTask === null) {
+        containerFastTask.innerHTML = '<p class="animate__animated animate__fadeIn">Completa alguna tarea!</p>';
+    } else {
+        containerFastTask.innerHTML = `
+            <div>
+                <p>${fastestTask.description}</p>
+            </div>`
+    }
+
+} 
+
+const deleteTask = (id:number) => {
+    
+    taskArray.deleteTask(id)
+    printTasks()
+
+}
+
+const toggleCompleteTask = (id:number) => {
+
+
+    taskArray.toggleComplete(id)
+    printTasks()
+
+
+}
+
+const addTaskDom = () => {
+    if(taskText.value.length > 1) {
+        
+        taskArray.addTask(taskText.value)
+
+        taskButton.style.borderLeft = '.2rem solid white'
+        taskText.style.border = '.2rem solid white'
+
+        printTasks()
+
+        taskText.value = ''
+
+    } else {
+        taskButton.style.borderLeft = '.2rem solid red'
+        taskText.style.border = '.2rem solid red'
+    }
+}
+
+const printTasks = () => {
+
+    taskList.innerHTML = '';
+    
+    taskArray.getAll().forEach(task => {
+
+        const TaskElement = document.createElement('li')
+
+        let liTaskHTML = `
+            <div>
+                <input type="checkbox" onchange="toggleCompleteTask(${task.key})" ${ task.complete && 'checked' } name="marckComplete" id="marckComplete">
+                <p ${task.complete && 'class="tachado"'}>${task.description}</p>
+            </div>
+            <button onClick="deleteTask(${task.key})"><i class="bi bi-x"></i></button>
+            
+        `
+
+        TaskElement.setAttribute("id", `${task.key}`)
+        TaskElement.setAttribute("class", "task")
+
+
+
+
+        taskList.appendChild(TaskElement)
+
+
+        TaskElement.innerHTML = liTaskHTML
+
+        
+
+    })
+}
+
+printTasks()

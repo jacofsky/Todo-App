@@ -9,35 +9,51 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
     <link rel="stylesheet" href="./styles/normalize.css">
     <link rel="stylesheet" href="./styles/index.css">
+
     
     <title>Todo App</title>
-</head>
+    </head>
 <body>
 
     <main class="main">
-        <h1>TODO APP</h1>
-        <div id="task--container" class="task--container">
-            <h2>Escribe tus tareas!</h2>
+        <h1 class="animate__animated animate__pulse">TODO APP</h1>
 
-            <div id="task--enter" class="task--enter">
-                
-                <input type="text" class="task--input" name="task--input" id="task--input">
-                
-                <input type="button" class="task--button__añadir" value="Añadir">
-
+        <div class="containers animate__animated animate__fadeIn">
+            <div id="task--container" class="task--container animate__animated animate__fadeIn">
+                <h2 class="animate__animated animate__fadeInLeft animate__delay-1s">Escribe tus tareas!</h2>
+    
+                <div id="task--enter" class="task--enter animate__animated animate__fadeInLeft animate__delay-1s">
+    
+                    
+                    <input type="text" class="task--input" name="task--input" id="taskTextInput">
+                    
+                    <input type="button"  id="taskAddButton" class="task--button__añadir" value="Agregar">
+                    
+    
+                </div>
+        
+                <ul id="task--list" class="taskUl animate__animated animate__fadeInLeft animate__delay-1s">
+                   
+                </ul>
+    
             </div>
+    
+            <div class="fastTaskContainer animate__animated animate__fadeIn">
+                <h2 class="animate__animated animate__fadeInRight animate__delay-1s">Tarea mas rapida</h2>
+                <button class="fastestTaskButton animate__animated animate__fadeInRight animate__delay-1s" id="fastestTaskButton">Ver tarea mas rapida</button>
 
-            <ul id="task--list">
-                <li id="314123421">
-                    <input type="checkbox" name="marckComplete" id="marckComplete">
-                    <p>Tarea 1</p>
-                    <button>Borrar</button>
-                </li>
-            </ul>
+                <div id="fastTask">
 
+                </div>
+            </div>
         </div>
+        
     </main>
     
     

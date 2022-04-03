@@ -4,6 +4,7 @@ interface ITask {
     complete:boolean,
     startDate:number,
     finishDate:number|null,
+    completeTime: number | null
 
     getDate():Date,
 }
@@ -15,6 +16,7 @@ class Task implements ITask {
     complete: boolean
     startDate: number
     finishDate: number | null
+    completeTime: number | null
 
     constructor(description:string){
         this.key = this.getDate().getTime()
@@ -22,6 +24,7 @@ class Task implements ITask {
         this.complete = false
         this.startDate = this.getDate().getTime()
         this.finishDate = null
+        this.completeTime = null
     }
 
     getDate(): Date {
@@ -35,11 +38,11 @@ interface ITaskArrat {
     fastestTask:Task|null,
     addTask(description:string):boolean,
     getAll():Array<Task>,
-    markComplete(key:number):boolean,
+    toggleComplete(key:number):boolean,
     deleteTask(key:number):boolean,
     getLocalStorage():void,
     setLocalStorage(task:Task[]|null):void,
-    getFastestTask():Task
+    getFastestTask():Task|null
 }
 
 class TaskArray implements ITaskArrat {
@@ -49,7 +52,7 @@ class TaskArray implements ITaskArrat {
 
     constructor(){
         this.tasks = []
-        this.fastestTask = null
+        this.fastestTask = this.getFastestTask()
     }
 
     addTask(desc:string): boolean {
@@ -58,7 +61,8 @@ class TaskArray implements ITaskArrat {
             return false
         }
 
-        this.tasks.push(new Task(desc))
+        this.tasks.unshift(new Task(desc))
+
 
         this.setLocalStorage(this.getAll())
         return true 
@@ -70,19 +74,27 @@ class TaskArray implements ITaskArrat {
     
     }
 
-    markComplete(key: number): boolean {
+    toggleComplete(key: number): boolean {
 
         let encontro:boolean = false
 
         this.tasks.map(task => {
             if(task.key === key){
-                task.complete = true
-                task.finishDate = new Date().getTime()
-                encontro = true
+
+                if(task.complete === false) {
+                    task.complete = true
+                    task.finishDate = new Date().getTime()
+                    task.completeTime = task.finishDate - task.startDate
+                    encontro = true
+                } else if(task.complete === true) {
+                    task.complete = false
+                    task.finishDate = null
+                    task.completeTime = null
+                    encontro = true
+                }
             }
         })
 
-        
         
         this.setLocalStorage(this.getAll())
         return encontro
@@ -93,11 +105,7 @@ class TaskArray implements ITaskArrat {
 
         let confirm = this.tasks.length
 
-        console.log(confirm)
-
         this.tasks = this.getAll().filter(task => task.key !== key )
-
-        console.log(this.tasks.length)
 
         this.setLocalStorage(this.getAll())
         return this.tasks.length < confirm
@@ -111,19 +119,40 @@ class TaskArray implements ITaskArrat {
         if (storage !== null) {
             const parseTasks:Task[] = JSON.parse(storage)
             this.tasks = parseTasks
+
         }
+
+        
 
     }
 
-    setLocalStorage(tasks: Task[]|null): void {
+    setLocalStorage(tasks: Task[]|null):void {
         localStorage.setItem("tasks", JSON.stringify(tasks))
     }
 
-    getFastestTask(): Task {
-        
-        this.tasks.sort
+    getFastestTask(): Task|null {
 
-        return 
+        const completeTasks = this.getAll().filter(task => task.complete === true)
+
+        if(completeTasks.length >= 1) {
+
+            const fastestTask = completeTasks.reduce((a,b):any => {
+                if(a.completeTime && b.completeTime) {
+    
+                    if(a.completeTime < b.completeTime) {
+                        return a
+                    } else {
+                        return b
+                    }
+                }
+                return null
+            })
+
+            return fastestTask
+        }
+        
+
+        return null
     }
 
 }
